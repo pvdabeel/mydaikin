@@ -383,10 +383,7 @@ def init():
 
 def main(argv):
 
-    app_print_logo()
-    prefix = ''
-
-    # get the data for the location      
+        # get the data for the location      
     aircos = discover()
 
     if bool(DARK_MODE):
@@ -394,9 +391,15 @@ def main(argv):
     else:
         color='black'
 
+    app_print_logo()
+    prefix = ''
 
     # print the data for the Smappee appliance
-    print ('%sNumber of aircos detected:  %s | color=%s' % (prefix, len(aircos), color))
+    print ('%sNumber of aircos detected: %s | color=%s' % (prefix, len(aircos), color))
+    print ('%s---' % prefix) 
+    for airco in aircos.keys():
+       print ('%s%s | color=%s' % (prefix, airco, color))
+
     # print ('%s---' % prefix) 
 
 
