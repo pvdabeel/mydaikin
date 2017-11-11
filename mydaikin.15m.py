@@ -399,6 +399,7 @@ def main(argv):
     print ('%s---' % prefix) 
     for airco in aircos.keys():
        print ('%s%s | color=%s' % (prefix, airco, color))
+       print ('%s--Turn on | color=%s' % (prefix, color))
 
     # print ('%s---' % prefix) 
 
