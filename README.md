@@ -3,6 +3,8 @@
 
 Displays information about your Daikin Emura home airco system. Allows you to control the airco units in your home.
 
+Builds on Daikin API [library](https://github.com/ael-code/daikin-control)
+
 ## Installation instructions: 
 
 1. Ensure you have [bitbar](https://github.com/matryer/bitbar/releases/latest) installed.
