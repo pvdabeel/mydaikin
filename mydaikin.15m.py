@@ -384,7 +384,10 @@ def init():
 def main(argv):
 
     # get the data for the location      
-    aircos = discover()
+    try:
+       aircos = discover()
+    except Exception as e:
+       aircos = {}
 
     if bool(DARK_MODE):
         color = '#FFDEDEDE'
