@@ -7,7 +7,7 @@ Displays information about your Daikin Emura home airco system. Allows you to co
 
 **Update 2019.08.11:**
 - [X] Detects and shows Daikin airco units 
-- [X) Shows outdoor temperature, and indoor temperature per unit
+- [X] Shows outdoor temperature, and indoor temperature per unit
 - [X] Control target temperature, fan speed, fan direction
 
 Builds on Daikin API [library](https://github.com/ael-code/daikin-control)
