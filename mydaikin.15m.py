@@ -68,7 +68,7 @@ def parse_basic_info(x):
     integers = ['port', 'err', 'pv']
     booleans = ['pow', 'led']
     parse_data(x, integers=integers, booleans=booleans)
-    x['name'] = urllib.parse.unquote(x['name'])
+    x['name'] = urllib.unquote(x['name'])
     return x
 
 
@@ -234,13 +234,13 @@ class Aircon():
         return self.send_request('GET', '/common/basic_info')
 
     def get_basic_info(self):
-        return bridge.parse_basic_info(self.get_raw_basic_info())
+        return parse_basic_info(self.get_raw_basic_info())
 
     def get_raw_sensor_info(self):
         return self.send_request('get', '/aircon/get_sensor_info')
 
     def get_sensor_info(self):
-        return bridge.parse_sensor_info(self.get_raw_sensor_info())
+        return parse_sensor_info(self.get_raw_sensor_info())
 
     def set_raw_control_info(self, params, update=True):
         if update:
@@ -251,13 +251,13 @@ class Aircon():
         self.send_request('GET', '/aircon/set_control_info', fields=params)
 
     def set_control_info(self, params, update=True):
-        return self.set_raw_control_info(bridge.format_control_info(params), update)
+        return self.set_raw_control_info(format_control_info(params), update)
 
     def get_raw_control_info(self):
         return self.send_request('GET', '/aircon/get_control_info')
 
     def get_control_info(self):
-        return bridge.parse_control_info(self.get_raw_control_info())
+        return parse_control_info(self.get_raw_control_info)
 
     def send_request(self, method, url, fields=None, headers=None, **urlopen_kw):
         '''Send request to air conditioner
@@ -401,7 +401,8 @@ def main(argv):
     print ('%sNumber of aircos detected: %s | color=%s' % (prefix, len(aircos), color))
     print ('%s---' % prefix) 
     for airco in aircos.keys():
-       print ('%s%s | color=%s' % (prefix, airco, color))
+       airco_unit = Aircon(airco)
+       print ('%s%s | color=%s' % (prefix, airco_unit.get_name(), color))
        print ('%s--Turn on | color=%s' % (prefix, color))
 
     # print ('%s---' % prefix) 
