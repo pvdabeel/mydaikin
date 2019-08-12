@@ -45,6 +45,8 @@ import urllib3
 import logging
 import urllib
 
+from collections import OrderedDict
+
 
 from datetime import date
 
@@ -57,6 +59,17 @@ CBLUE   = '\33[34m'
 
 # Support for OS X Dark Mode
 DARK_MODE=os.getenv('BitBarDarkMode',0)
+
+# Pretty printing 
+
+def justify(string):
+    return justify(string,10)
+
+def justify(string,number):
+    length = len(string)
+    quot   = (number - length ) // 4
+    rem    = (number - length )  % 4
+    return string.ljust(length+rem,' ').ljust(length+rem+quot,'\t')
 
 
 # Daikin bridge code
@@ -217,6 +230,22 @@ class Aircon():
         self.set_control_info({'mode': v})
 
     mode = property(get_mode, set_mode)
+
+    def get_frate(self):
+        return self.get_control_info()['f_rate']
+
+    def set_frate(self,v):
+        self.set_control_info({'f_rate': v})
+
+    rate = property(get_frate, set_frate)
+
+    def get_fdir(self):
+        return self.get_control_info()['f_dir']
+
+    def set_fdir(self,v):
+        self.set_control_info({'f_dir': v})
+
+    fdir = property(get_fdir, set_fdir)
 
     def get_indoor_temp(self):
         return self.get_sensor_info()['htemp']
@@ -392,31 +421,72 @@ def main(argv):
 
     if bool(DARK_MODE):
         color = '#FFDEDEDE'
+        info_color = '#808080'
     else:
         color='black'
+        info_color = '#808080'
 
     app_print_logo()
     prefix = ''
 
     # print the data for the location
-    print ('%sNumber of aircos detected: %s | color=%s' % (prefix, len(aircos), color))
-    print ('%s---' % prefix) 
-    for airco in aircos.keys():
-       airco_unit = Aircon(airco)
+    # print ('%sNumber of aircos detected: %s | color=%s' % (prefix, len(aircos), color))
+    try:
+       base_unit = Aircon(aircos.keys()[0])
+       print (u'%sOutside: \t\t%s°C | color=%s' % (prefix, base_unit.get_outdoor_temp(), color))
+       print ('%s---' % prefix) 
+       for airco in aircos.keys():
+          airco_unit = Aircon(airco)
 
-       airco_name     = airco_unit.get_name()
-       airco_power    = airco_unit.get_power()
-       airco_temp_cur = airco_unit.get_indoor_temp()
-       airco_temp_tar = airco_unit.get_target_temp()
+          airco_name     = airco_unit.get_name()
+          airco_power    = airco_unit.get_power()
+          airco_temp_cur = airco_unit.get_indoor_temp()
+          airco_temp_tar = airco_unit.get_target_temp()
+          airco_mode     = airco_unit.get_mode()
+          airco_frate    = airco_unit.get_frate()
+          airco_fdir     = airco_unit.get_fdir()
 
-       print (u'%s%s - %s°C - %s°C | color=%s' % (prefix, airco_name, airco_temp_cur, airco_temp_tar, color))
-       if bool(airco_power):
-          print ('%s--Turn off | color=%s' % (prefix, color))
-       else:
-          print ('%s--Turn on | color=%s' % (prefix, color))
+          if bool(airco_power):
+             if (airco_temp_cur >= airco_temp_tar):
+                print (u'%s%s %s°C %s-> %s°C%s | color=%s' % (prefix, justify(airco_name,18), airco_temp_cur, CBLUE, airco_temp_tar, CEND, color))
+             else:
+                print (u'%s%s %s°C %s-> %s°C%s | color=%s' % (prefix, justify(airco_name,18), airco_temp_cur, CRED, airco_temp_tar, CEND, color))
+             print ('%s--Turn off | color=%s' % (prefix, color))
+          else:
+             print (u'%s%s %s°C | color=%s' % (prefix, justify(airco_name,18), airco_temp_cur, color))
+             print ('%s--Turn on | color=%s' % (prefix, color))
+
+          print ('%s-----' % prefix) 
+          print ('%s--Temperature | color=%s' % (prefix, color))
+          for temperature in ['18.0','19.0','20.0','21.0','22.0','23.0']:
+             if (str(temperature) == str(airco_temp_tar)):
+                print (u'%s----%s°C | color=%s' % (prefix, temperature, color))
+             else:
+                print (u'%s----%s°C | color=%s' % (prefix, temperature, info_color))
+
+          print ('%s-----' % prefix) 
+          print ('%s--Fan rate | color=%s' % (prefix, color))
+          frates = OrderedDict([ ('auto','1'), ('silent','2'), ('1','3'), ('2','4'), ('3','5'), ('4','6'), ('5','7') ])
+          for frate in frates.keys():
+             if (frates[str(frate)] == airco_frate):
+                print (u'%s----%s | color=%s' % (prefix, frate, color))
+             else:
+                print (u'%s----%s | color=%s' % (prefix, frate, info_color))
+          print ('%s--Fan direction | color=%s' % (prefix, color))
+          fdirs = OrderedDict([ ('none','0'), ('vertical','1'), ('horizontal','2'), ('3D','3') ])
+          for fdir in fdirs.keys():
+             if (fdirs[str(fdir)] == airco_fdir):
+                print (u'%s----%s | color=%s' % (prefix, fdir, color))
+             else:
+                print (u'%s----%s | color=%s' % (prefix, fdir, info_color))
 
 
-    # print ('%s---' % prefix) 
+
+    except Exception as e:
+       print (e)
+       print ('%sNo Daikin airco detected | color=%s' % (prefix, color))
+
+
 
 
 def run_script(script):
