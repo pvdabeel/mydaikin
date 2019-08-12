@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env PYTHONIOENCODING=UTF-8 /usr/bin/python
 # -*- coding: utf-8 -*-
 #
 # <bitbar.title>MyDaikin</bitbar.title>
@@ -95,6 +95,7 @@ def format_control_info(x):
 def parse_data(x, integers=[],
                   booleans=[],
                   temps=[]):
+
 
     for field in integers:
         try:
@@ -257,7 +258,7 @@ class Aircon():
         return self.send_request('GET', '/aircon/get_control_info')
 
     def get_control_info(self):
-        return parse_control_info(self.get_raw_control_info)
+        return parse_control_info(self.get_raw_control_info())
 
     def send_request(self, method, url, fields=None, headers=None, **urlopen_kw):
         '''Send request to air conditioner
@@ -402,8 +403,18 @@ def main(argv):
     print ('%s---' % prefix) 
     for airco in aircos.keys():
        airco_unit = Aircon(airco)
-       print ('%s%s | color=%s' % (prefix, airco_unit.get_name(), color))
-       print ('%s--Turn on | color=%s' % (prefix, color))
+
+       airco_name     = airco_unit.get_name()
+       airco_power    = airco_unit.get_power()
+       airco_temp_cur = airco_unit.get_indoor_temp()
+       airco_temp_tar = airco_unit.get_target_temp()
+
+       print (u'%s%s - %s°C - %s°C | color=%s' % (prefix, airco_name, airco_temp_cur, airco_temp_tar, color))
+       if bool(airco_power):
+          print ('%s--Turn off | color=%s' % (prefix, color))
+       else:
+          print ('%s--Turn on | color=%s' % (prefix, color))
+
 
     # print ('%s---' % prefix) 
 
