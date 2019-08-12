@@ -460,7 +460,7 @@ def main(argv):
           print ('%s--Temperature | color=%s' % (prefix, color))
           for temperature in ['18.0','19.0','20.0','21.0','22.0','23.0']:
              if (str(temperature) == str(airco_temp_tar)):
-                print (u'%s----%s°C | color=%s' % (prefix, temperature, color))
+                print (u'%s----%s%s°C%s | color=%s' % (prefix, CBLUE, temperature, CEND, color))
              else:
                 print (u'%s----%s°C | color=%s' % (prefix, temperature, info_color))
 
@@ -469,14 +469,14 @@ def main(argv):
           frates = OrderedDict([ ('auto','1'), ('silent','2'), ('1','3'), ('2','4'), ('3','5'), ('4','6'), ('5','7') ])
           for frate in frates.keys():
              if (frates[str(frate)] == airco_frate):
-                print (u'%s----%s | color=%s' % (prefix, frate, color))
+                print (u'%s----%s%s%s | color=%s' % (prefix, CBLUE, frate, CEND, color))
              else:
                 print (u'%s----%s | color=%s' % (prefix, frate, info_color))
           print ('%s--Fan direction | color=%s' % (prefix, color))
           fdirs = OrderedDict([ ('none','0'), ('vertical','1'), ('horizontal','2'), ('3D','3') ])
           for fdir in fdirs.keys():
              if (fdirs[str(fdir)] == airco_fdir):
-                print (u'%s----%s | color=%s' % (prefix, fdir, color))
+                print (u'%s----%s%s%s | color=%s' % (prefix, CBLUE, fdir, CEND, color))
              else:
                 print (u'%s----%s | color=%s' % (prefix, fdir, info_color))
 
@@ -485,12 +485,6 @@ def main(argv):
     except Exception as e:
        print (e)
        print ('%sNo Daikin airco detected | color=%s' % (prefix, color))
-
-
-
-
-def run_script(script):
-    return subprocess.Popen([script], stdout=subprocess.PIPE, shell=True).communicate()[0].strip()
 
 
 if __name__ == '__main__':
