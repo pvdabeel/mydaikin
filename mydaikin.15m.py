@@ -48,6 +48,10 @@ import urllib
 from collections import OrderedDict
 
 
+# Wait till you have discovered at least X units
+MY_NUMBER_UNITS=4
+
+
 from datetime import date
 
 # Nice ANSI colors
@@ -343,14 +347,14 @@ def process_response(response):
     return rsp
 
 
-def discover(waitfor=1,
-             timeout=10,
+def discover(waitfor=MY_NUMBER_UNITS,
+             timeout=5,
              listen_address="0.0.0.0",
              listen_port=0,
              probe_port=30050,
              probe_address='255.255.255.255',
              probe_attempts=10,
-             probe_interval=0.3):
+             probe_interval=0.2):
 
     discovered = {}
 
