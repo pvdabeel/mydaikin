@@ -130,8 +130,8 @@ def parse_data(x, integers=[],
         try:
             x[field] = parse_temperature(x[field])
         except ValueError:
-            log.exception(("Failed to parse field {{'{}':'{}'}}."
-                           "A temperature was expected").format(field, x[field]))
+            #log.exception(("Failed to parse field {{'{}':'{}'}}."
+            #               "A temperature was expected").format(field, x[field]))
             pass
 
 
@@ -181,7 +181,8 @@ RET_MSG_OK = b'OK'
 RET_MSG_PARAM_NG = b'PARAM NG'
 RET_MSG_ADV_NG = b'ADV_NG'
 
-log = logging.getLogger("dainkin_aircon")
+logging.basicConfig()
+log = logging.getLogger("daikin_airco")
 
 
 class Aircon():
