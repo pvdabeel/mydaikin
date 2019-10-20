@@ -517,25 +517,26 @@ def main(argv):
                 print (u'%s----%s°C | refresh=true terminal=false bash="%s" param1=%s param2=%s param3=%s color=%s' % (prefix, temperature, sys.argv[0], airco, 'set_target_temp', temperature, info_color))
                 print (u'%s----%s°C | refresh=true alternate=true terminal=true bash="%s" param1=%s param2=%s param3=%s color=%s' % (prefix, temperature, sys.argv[0], airco, 'set_target_temp', temperature, info_color))
 
-          print ('%s-----' % prefix) 
-          print ('%s--Fan rate | color=%s' % (prefix, color))
+          print ('%s-----' % prefix)
+          print ('%s--Fan | color=%s' % (prefix, color))
+          print ('%s----Rate | color=%s' % (prefix, color))
           frates = OrderedDict([ ('auto','A'), ('silent','B'), ('1','3'), ('2','4'), ('3','5'), ('4','6'), ('5','7') ])
           for frate in frates.keys():
              if (frates[str(frate)] == airco_frate):
-                print (u'%s----%s | refresh=true terminal=false bash="%s" param1=%s param2=%s param3=%s color=%s' % (prefix, frate, sys.argv[0], airco, 'set_frate', frates[str(frate)], color))
-                print (u'%s----%s | refresh=true alternate=true terminal=true bash="%s" param1=%s param2=%s param3=%s color=%s' % (prefix, frate, sys.argv[0], airco, 'set_frate', frates[str(frate)], color))
+                print (u'%s------%s | refresh=true terminal=false bash="%s" param1=%s param2=%s param3=%s color=%s' % (prefix, frate, sys.argv[0], airco, 'set_frate', frates[str(frate)], color))
+                print (u'%s------%s | refresh=true alternate=true terminal=true bash="%s" param1=%s param2=%s param3=%s color=%s' % (prefix, frate, sys.argv[0], airco, 'set_frate', frates[str(frate)], color))
              else:
-                print (u'%s----%s | refresh=true terminal=false bash="%s" param1=%s param2=%s param3=%s color=%s' % (prefix, frate, sys.argv[0], airco, 'set_frate', frates[str(frate)], info_color))
-                print (u'%s----%s | refresh=true alternate=true terminal=true bash="%s" param1=%s param2=%s param3=%s color=%s' % (prefix, frate, sys.argv[0], airco, 'set_frate', frates[str(frate)], info_color))
-          print ('%s--Fan direction | color=%s' % (prefix, color))
+                print (u'%s------%s | refresh=true terminal=false bash="%s" param1=%s param2=%s param3=%s color=%s' % (prefix, frate, sys.argv[0], airco, 'set_frate', frates[str(frate)], info_color))
+                print (u'%s------%s | refresh=true alternate=true terminal=true bash="%s" param1=%s param2=%s param3=%s color=%s' % (prefix, frate, sys.argv[0], airco, 'set_frate', frates[str(frate)], info_color))
+          print ('%s----Direction | color=%s' % (prefix, color))
           fdirs = OrderedDict([ ('none','0'), ('vertical','1'), ('horizontal','2'), ('3D','3') ])
           for fdir in fdirs.keys():
              if (fdirs[str(fdir)] == airco_fdir):
-                print (u'%s----%s | refresh=true terminal=false bash="%s" param1=%s param2=%s param3=%s color=%s' % (prefix, fdir, sys.argv[0], airco, 'set_fdir', fdirs[str(fdir)], color))
-                print (u'%s----%s | refresh=true alternate=true terminal=true bash="%s" param1=%s param2=%s param3=%s color=%s' % (prefix, fdir, sys.argv[0], airco, 'set_fdir', fdirs[str(fdir)], color))
+                print (u'%s------%s | refresh=true terminal=false bash="%s" param1=%s param2=%s param3=%s color=%s' % (prefix, fdir, sys.argv[0], airco, 'set_fdir', fdirs[str(fdir)], color))
+                print (u'%s------%s | refresh=true alternate=true terminal=true bash="%s" param1=%s param2=%s param3=%s color=%s' % (prefix, fdir, sys.argv[0], airco, 'set_fdir', fdirs[str(fdir)], color))
              else:
-                print (u'%s----%s | refresh=true terminal=false bash="%s" param1=%s param2=%s param3=%s color=%s' % (prefix, fdir, sys.argv[0], airco, 'set_fdir', fdirs[str(fdir)], info_color))
-                print (u'%s----%s | refresh=true alternate=true terminal=true bash="%s" param1=%s param2=%s param3=%s color=%s' % (prefix, fdir, sys.argv[0], airco, 'set_fdir', fdirs[str(fdir)], info_color))
+                print (u'%s------%s | refresh=true terminal=false bash="%s" param1=%s param2=%s param3=%s color=%s' % (prefix, fdir, sys.argv[0], airco, 'set_fdir', fdirs[str(fdir)], info_color))
+                print (u'%s------%s | refresh=true alternate=true terminal=true bash="%s" param1=%s param2=%s param3=%s color=%s' % (prefix, fdir, sys.argv[0], airco, 'set_fdir', fdirs[str(fdir)], info_color))
 
 
 
