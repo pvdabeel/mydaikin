@@ -5,6 +5,10 @@ Displays information about your Daikin Emura home airco system. Allows you to co
 
 ![Imgur](https://i.imgur.com/VTb32Si.png)
 
+
+**Update 2019.10.20:**
+- [X] Enable mode setting: Dry, Fan, Cool, Heat or Auto
+
 **Update 2019.08.11:**
 - [X] Detects and shows Daikin airco units 
 - [X] Shows outdoor temperature, and indoor temperature per unit
