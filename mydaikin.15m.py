@@ -507,7 +507,6 @@ def main(argv):
                 print (u'%s----%s | refresh=true alternate=true terminal=true bash="%s" param1=%s param2=%s param3=%s color=%s' % (prefix, mode, sys.argv[0], airco, 'set_mode', modes[str(mode)], info_color))
  
 
-          print ('%s-----' % prefix) 
           print ('%s--Temperature | color=%s' % (prefix, color))
           for temperature in ['18.0','19.0','20.0','21.0','22.0','23.0','24.0','25.0']:
              if (str(temperature) == str(airco_temp_tar)):
@@ -517,7 +516,6 @@ def main(argv):
                 print (u'%s----%s°C | refresh=true terminal=false bash="%s" param1=%s param2=%s param3=%s color=%s' % (prefix, temperature, sys.argv[0], airco, 'set_target_temp', temperature, info_color))
                 print (u'%s----%s°C | refresh=true alternate=true terminal=true bash="%s" param1=%s param2=%s param3=%s color=%s' % (prefix, temperature, sys.argv[0], airco, 'set_target_temp', temperature, info_color))
 
-          print ('%s-----' % prefix)
           print ('%s--Fan | color=%s' % (prefix, color))
           print ('%s----Rate | color=%s' % (prefix, color))
           frates = OrderedDict([ ('auto','A'), ('silent','B'), ('1','3'), ('2','4'), ('3','5'), ('4','6'), ('5','7') ])
