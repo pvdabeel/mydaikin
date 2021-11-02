@@ -6,6 +6,9 @@ Displays information about your Daikin Emura home airco system. Allows you to co
 ![Imgur](https://i.imgur.com/VTb32Si.png)
 
 
+**Update 2021.11.02:**
+- [X] Xbar compatible
+
 **Update 2019.10.20:**
 - [X] Enable mode setting: Dry, Fan, Cool, Heat or Auto
 
@@ -18,7 +21,6 @@ Builds on Daikin API [library](https://github.com/ael-code/daikin-control)
 
 ## Installation instructions: 
 
-1. Ensure you have [bitbar](https://github.com/matryer/bitbar/releases/latest) installed.
-2. Ensure your bitbar plugins directory does not have a space in the path (A known bitbar bug)
-3. Copy [mydaikin.15m.py](mydaikin.15m.py) to your bitbar plugins folder and chmod +x the file from your terminal in that folder
-4. Run bitbar (version 1.9 or <2.0-beta9, xbar not yet supported)
+1. Ensure you have [xbar](https://github.com/matryer/xbar/releases/latest) installed.
+2. Copy [mydaikin.15m.py](mydaikin.15m.py) to your xbar plugins folder and chmod +x the file from your terminal in that folder
+3. Run xbar
