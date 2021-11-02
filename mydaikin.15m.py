@@ -1,21 +1,20 @@
 #!/usr/bin/env PYTHONIOENCODING=UTF-8 /usr/bin/python
 # -*- coding: utf-8 -*-
 #
-# <bitbar.title>MyDaikin</bitbar.title>
-# <bitbar.version>v1.0</bitbar.version>
-# <bitbar.author>pvdabeel@mac.com</bitbar.author>
-# <bitbar.author.github>pvdabeel</bitbar.author.github>
-# <bitbar.desc>Display information about and control your Daikin Emura airco units from the Mac OS X menubar</bitbar.desc>
-# <bitbar.dependencies>python</bitbar.dependencies>
+# <xbar.title>MyDaikin</xbar.title>
+# <xbar.version>v1.0</xbar.version>
+# <xbar.author>pvdabeel@mac.com</xbar.author>
+# <xbar.author.github>pvdabeel</xbar.author.github>
+# <xbar.desc>Display information about and control your Daikin Emura airco units from the Mac OS X menubar</xbar.desc>
+# <xbar.dependencies>python</xbar.dependencies>
 #
 # Licence: GPL v3
 
 # Installation instructions: 
 # -------------------------- 
-# Ensure you have bitbar installed https://github.com/matryer/bitbar/releases/latest
-# Ensure your bitbar plugins directory does not have a space in the path (known bitbar bug)
-# Copy this file to your bitbar plugins folder and chmod +x the file from your terminal in that folder
-# Run bitbar
+# Ensure you have xbar installed https://github.com/matryer/xbar/releases/latest
+# Copy this file to your xbar plugins folder and chmod +x the file from your terminal in that folder
+# Run xbar
 
 
 try:   # Python 3 dependencies
@@ -61,8 +60,9 @@ CGREEN  = '\33[32m'
 CYELLOW = '\33[33m'
 CBLUE   = '\33[36m'
 
-# Support for OS X Dark Mode
-DARK_MODE=os.getenv('XBARDarkMode',0)
+# Support for OS X Dark Mode                                                    
+DARK_MODE=True if os.getenv('XBARDarkMode','false') == 'true' else False  
+
 
 # The full path to this file                                                    
                                                                                 
@@ -429,12 +429,13 @@ def main(argv):
     except Exception as e:
        aircos = {}
 
-    if bool(DARK_MODE):
-        color = '#FFDEDEDE'
-        info_color = '#808080'
-    else:
-        color='black'
-        info_color = '#808080'
+
+    if bool(DARK_MODE):                                                         
+        color = '#FFFFFE'                                                       
+        info_color = '#C0C0C0'                                                  
+    else:                                                                       
+        color = '#00000E'                                                       
+        info_color = '#616161'   
 
 
     # CASE 1: command received
