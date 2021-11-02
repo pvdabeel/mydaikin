@@ -1,5 +1,5 @@
 
-# MyDaikin - OS X Menubar plugin
+# MyDaikin - MacOS Menubar plugin
 
 Displays information about your Daikin Emura home airco system. Allows you to control the airco units in your home.
 
