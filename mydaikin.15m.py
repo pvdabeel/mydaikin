@@ -1,11 +1,11 @@
-#!/usr/bin/env PYTHONIOENCODING=UTF-8 /Library/Frameworks/Python.framework/Versions/2.7/bin/python
+#!/usr/bin/env PYTHONIOENCODING=UTF-8 /opt/local/bin/python3
 # -*- coding: utf-8 -*-
 #
 # <xbar.title>MyDaikin</xbar.title>
 # <xbar.version>v1.0</xbar.version>
 # <xbar.author>pvdabeel@mac.com</xbar.author>
 # <xbar.author.github>pvdabeel</xbar.author.github>
-# <xbar.desc>Display information about and control your Daikin Emura airco units from the MacOS menubar</xbar.desc>
+# <xbar.desc>Display information about and control your Daikin Emura airco units from the Mac OS X menubar</xbar.desc>
 # <xbar.dependencies>python</xbar.dependencies>
 #
 # Licence: GPL v3
@@ -37,7 +37,7 @@ import time
 import os
 import subprocess
 import socket
-import SocketServer
+import socketserver
 import threading
 import logging
 import urllib3
@@ -90,7 +90,7 @@ def parse_basic_info(x):
     integers = ['port', 'err', 'pv']
     booleans = ['pow', 'led']
     parse_data(x, integers=integers, booleans=booleans)
-    x['name'] = urllib.unquote(x['name'])
+    x['name'] = urllib.parse.unquote(x['name'])
     return x
 
 
@@ -334,7 +334,7 @@ def process_response(response):
        standard prefix @RESPONSE_PREFIX a RespException will be raised.
     '''
     rsp = response.split(b',')
-    if (len(rsp) is 0) or (not rsp[0].startswith(b'ret=')):
+    if (len(rsp) == 0) or (not rsp[0].startswith(b'ret=')):
         raise RespException("Unrecognized data format for the response")
 
     ret_msg = rsp[0][4:]
@@ -364,7 +364,7 @@ def discover(waitfor=MY_NUMBER_UNITS,
 
     discovered = {}
 
-    class UDPRequestHandler(SocketServer.BaseRequestHandler):
+    class UDPRequestHandler(socketserver.BaseRequestHandler):
 
         def handle(self):
             log.debug("Discovery: received response from {} - '{}'".format(self.client_address[0], self.request[0]))
@@ -376,7 +376,7 @@ def discover(waitfor=MY_NUMBER_UNITS,
     sckt.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sckt.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
 
-    server = SocketServer.ThreadingUDPServer((listen_address, listen_port), UDPRequestHandler)
+    server = socketserver.ThreadingUDPServer((listen_address, listen_port), UDPRequestHandler)
     server.socket = sckt
     srv_addr, srv_port = server.server_address
 
@@ -457,7 +457,7 @@ def main(argv):
         elif (argv[2] == "set_mode"):
             target.set_mode(argv[3])
         else: 
-            print "Unknown argument, try again."
+            print ("Unknown argument, try again.")
         return
 
     # CASE 2: bitbar output
@@ -468,9 +468,10 @@ def main(argv):
     # print the data for the location
     # print ('%sNumber of aircos detected: %s | color=%s' % (prefix, len(aircos), color))
     try:
-       base_unit = Aircon(aircos.keys()[0])
+       base_unit = Aircon(list(aircos.keys())[0])
        print (u'%sOutside: \t\t\t%s°C | color=%s' % (prefix, base_unit.get_outdoor_temp(), color))
        print ('%s---' % prefix) 
+
        for airco in aircos.keys():
           airco_unit = Aircon(airco)
 

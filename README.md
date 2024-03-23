@@ -21,7 +21,6 @@ Builds on Daikin API [library](https://github.com/ael-code/daikin-control)
 
 ## Installation instructions: 
 
-0. Download [python](http://www.python.org) version 2.7  
 1. Ensure you have [xbar](https://github.com/matryer/xbar/releases/latest) installed.
 2. Copy [mydaikin.15m.py](mydaikin.15m.py) to your xbar plugins folder and chmod +x the file from your terminal in that folder
 3. Run xbar
