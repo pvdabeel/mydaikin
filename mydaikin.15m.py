@@ -546,7 +546,7 @@ def main(argv):
 
 
     except Exception as e:
-       print (e)
+       #print (e)
        print ('%sNo Daikin airco detected | color=%s' % (prefix, color))
 
 
